@@ -1,0 +1,15 @@
+apiVersion: batch/v1  # API version
+kind: CronJob  # Resource type
+metadata:
+  name: daily-db-backup-cronjob  # CronJob name
+spec:
+  schedule: "0 1 * * *"  # Schedule (daily at 1 AM)
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: db-backup-container  # Container name
+            image: db-backup-image:latest  # Docker image for the backup job
+            command: ["sh", "-c", "backup.sh"]  # Command to run for backup
+          restartPolicy: OnFailure  # Restart policy for failed jobs

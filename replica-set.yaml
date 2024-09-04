@@ -1,0 +1,19 @@
+apiVersion: apps/v1  # API version
+kind: ReplicaSet
+metadata:
+  name: web-app-replicaset  # ReplicaSet name
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app-container  # Container name
+        image: web-app-image:1.0
+        ports:
+        - containerPort: 8080  # Port to expose on the container

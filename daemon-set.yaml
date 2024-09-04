@@ -1,0 +1,18 @@
+apiVersion: apps/v1  # API version
+kind: DaemonSet  # Resource type
+metadata:
+  name: log-collector-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: log-collector  # Label selector to identify the pods
+  template:
+    metadata:
+      labels:
+        app: log-collector
+    spec:
+      containers:
+      - name: log-collector-container  # Container name
+        image: log-collector-image:latest
+        ports:
+        - containerPort: 8081  # Port to expose

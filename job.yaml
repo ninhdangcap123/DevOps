@@ -1,0 +1,12 @@
+apiVersion: batch/v1  # API version
+kind: Job  # Resource type
+metadata:
+  name: db-backup-job  # Job name
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-backup-container  # Container name
+        image: db-backup-image:latest  # Docker image for the backup job
+        command: ["sh", "-c", "backup.sh"]  # Command to run for backup
+      restartPolicy: OnFailure  # Restart policy for failed jobs

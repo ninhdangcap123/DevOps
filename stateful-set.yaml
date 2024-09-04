@@ -1,0 +1,28 @@
+apiVersion: apps/v1  # API version
+kind: StatefulSet  # Resource type
+metadata:
+  name: redis-statefulset  # StatefulSet name
+spec:
+  serviceName: "redis-headless"  # Headless service name
+  replicas: 3  # Number of replicas (Redis nodes)
+  selector:
+    matchLabels:
+      app: redis  # Label selector to identify the pods
+  template:
+    metadata:
+      labels:
+        app: redis  # Labels to apply to the pods
+    spec:
+      containers:
+      - name: redis-container  # Container name
+        image: redis:6.2  # Docker image of Redis
+        ports:
+        - containerPort: 6379  # Port to expose
+  volumeClaimTemplates:  # Volume claims for storage
+  - metadata:
+      name: redis-data  # Volume claim name
+    spec:
+      accessModes: ["ReadWriteOnce"]  # Access mode for volume
+      resources:
+        requests:
+          storage: 10Gi  # Storage size requested

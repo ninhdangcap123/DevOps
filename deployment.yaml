@@ -1,0 +1,19 @@
+apiVersion: apps/v1  # API version
+kind: Deployment
+metadata:
+  name: web-app-deployment
+spec:
+  replicas: 3  # Number of web app pods to run
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app-container
+        image: web-app-image:1.0
+        ports:
+        - containerPort: 8080  # Port to expose on the container
